@@ -40,6 +40,16 @@
      <string>Open a new path to get started...</string>
     </property>
    </widget>
+   <widget class="QListWidget" name="listWidgetFiles">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>181</width>
+      <height>371</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileInfoList>
 
 #include "imagefindercontrol.h"
 
@@ -18,6 +19,10 @@ public:
     ~MainWindow();
 
     void setPath(QString path);
+    void showDirectoryInformation(QFileInfoList files);
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
