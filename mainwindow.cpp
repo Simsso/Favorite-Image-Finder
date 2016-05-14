@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    askForDirectoryPath();
+    //askForDirectoryPath();
 }
 
 MainWindow::~MainWindow()
@@ -67,6 +67,7 @@ void MainWindow::showImage(const QString path, QGraphicsView* view, bool autoSca
         }
     }
 
+    view->matrix().reset();
     view->resetMatrix();
     view->scale(scale, scale);
 

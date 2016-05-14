@@ -14,104 +14,93 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>10</y>
-      <width>131</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Open New Path</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelPath">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>491</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Open a new path to get started...</string>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="listWidgetFiles">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>45</y>
-      <width>181</width>
-      <height>351</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="graphicsViewA">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>45</y>
-      <width>200</width>
-      <height>300</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="graphicsViewB">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>45</y>
-      <width>200</width>
-      <height>300</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnImgA">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>350</y>
-      <width>200</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>This one! [A]</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnImgB">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>350</y>
-      <width>200</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>This one! [B]</string>
-    </property>
-   </widget>
-   <widget class="QProgressBar" name="mainProgress">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>400</y>
-      <width>611</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <number>1000</number>
-    </property>
-    <property name="value">
-     <number>0</number>
-    </property>
-   </widget>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,1">
+      <property name="spacing">
+       <number>-1</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetNoConstraint</enum>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,0">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetNoConstraint</enum>
+        </property>
+        <item>
+         <widget class="QLabel" name="labelPath">
+          <property name="text">
+           <string>Open a new path to get started...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>Open New Path</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QProgressBar" name="mainProgress">
+        <property name="maximum">
+         <number>1000</number>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1,1">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetNoConstraint</enum>
+        </property>
+        <item>
+         <widget class="QListWidget" name="listWidgetFiles"/>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="btnImgA">
+            <property name="text">
+             <string>This one! [A]</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGraphicsView" name="graphicsViewA"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QPushButton" name="btnImgB">
+            <property name="text">
+             <string>This one! [B]</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGraphicsView" name="graphicsViewB"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

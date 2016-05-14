@@ -1,16 +1,22 @@
 #include "imagefindercontrol.h"
 #include "mainwindow.h"
 
-#include <random>
 #include <vector>
+#include <random>
+#include <time.h>
 
 #include <QDir>
-
+#include <QDebug>
 
 ImageFinderControl::ImageFinderControl(MainWindow* ui, QString path) : ui(ui), directoryPath(path)
 {
     ui->setPath(path);
     this->init();
+
+#ifdef QT_DEBUG
+#else
+    srand(time(NULL)); // true pseudo randomness
+#endif
 }
 
 ImageFinderControl::~ImageFinderControl()
@@ -69,7 +75,7 @@ QFileInfoPair ImageFinderControl::getTwoRandomPreferredFiles() const
 {
     QFileInfoPair fip;
     std::vector<const QFileInfo*> preferredFiles = this->getPreferredFiles();
-    size_t index = (size_t)(rand() / (double)RAND_MAX * preferredFiles.size());
+    size_t index = (size_t)((rand() / (double)RAND_MAX) * preferredFiles.size());
     fip.a = preferredFiles[index++];
     fip.b = preferredFiles[(index < preferredFiles.size()) ? index : 0];
     return fip;
