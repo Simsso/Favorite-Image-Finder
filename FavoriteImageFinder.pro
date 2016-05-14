@@ -17,6 +17,7 @@ SOURCES += main.cpp\
     imagefindercontrol.cpp
 
 HEADERS  += mainwindow.h \
-    imagefindercontrol.h
+    imagefindercontrol.h \
+    qfileinfopair.h
 
 FORMS    += mainwindow.ui

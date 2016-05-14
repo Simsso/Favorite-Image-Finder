@@ -1,12 +1,16 @@
 #include "imagefindercontrol.h"
 #include "mainwindow.h"
 
+#include <random>
+#include <vector>
+
 #include <QDir>
+
 
 ImageFinderControl::ImageFinderControl(MainWindow* ui, QString path) : ui(ui), directoryPath(path)
 {
     ui->setPath(path);
-    this->loadFileNames();
+    this->init();
 }
 
 ImageFinderControl::~ImageFinderControl()
@@ -14,11 +18,69 @@ ImageFinderControl::~ImageFinderControl()
     //delete ui;
 }
 
+// searches the class' directory path for image files and stores them in the files attribute
 void ImageFinderControl::loadFileNames()
 {
     QDir directory(this->directoryPath);
     QStringList nameFilter;
-    nameFilter << "*.png" << "*.jpg" << "*.gif";
+    nameFilter << "*.png" << "*.jpg" << "*.jpeg" << "*.gif";
     this->files = directory.entryInfoList(nameFilter, QDir::Files);
     this->ui->showDirectoryInformation(this->files);
+}
+
+void ImageFinderControl::init()
+{
+    this->loadFileNames();
+
+    int numFiles = this->files.size();
+    if (numFiles > 0) { // files found
+        if (numFiles == 1) {
+            // only one file exists
+            this->ui->showWinner(&this->files[0]);
+        }
+        else {
+            // more than one file
+            this->preferred = new bool[numFiles];
+            for (int i = 0; i < numFiles; i++) {
+                this->preferred[i] = true;
+            }
+            this->nextQuestion();
+        }
+    }
+}
+
+std::vector<const QFileInfo*> ImageFinderControl::getPreferredFiles() const
+{
+    std::vector<const QFileInfo*> preferredFiles;
+    for (int i = 0; i < this->files.size(); i++) {
+        if (this->preferred[i]) {
+            preferredFiles.push_back(&this->files[i]);
+        }
+    }
+    return preferredFiles;
+}
+
+bool ImageFinderControl::done()
+{
+    return (this->getPreferredFiles().size() == 1);
+}
+
+QFileInfoPair ImageFinderControl::getTwoRandomPreferredFiles() const
+{
+    QFileInfoPair fip;
+    std::vector<const QFileInfo*> preferredFiles = this->getPreferredFiles();
+    size_t index = (size_t)(rand() / (double)RAND_MAX * preferredFiles.size());
+    fip.a = preferredFiles[index++];
+    fip.b = preferredFiles[(index < preferredFiles.size()) ? index : 0];
+    return fip;
+}
+
+void ImageFinderControl::nextQuestion()
+{
+    this->ui->showImages(this->getTwoRandomPreferredFiles());
+}
+
+double ImageFinderControl::getProgress() const
+{
+    return 1 - ((double)this->getPreferredFiles().size() - 1) / this->files.size();
 }

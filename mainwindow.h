@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QFileInfoList>
+#include <QGraphicsView>
+
+#include "qfileinfopair.h"
 
 #include "imagefindercontrol.h"
 
@@ -18,8 +21,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void setPath(QString path);
-    void showDirectoryInformation(QFileInfoList files);
+    void setPath(const QString path);
+    void showDirectoryInformation(const QFileInfoList files);
+
+    void showImages(const QFileInfoPair fip);
+    void showWinner(const QFileInfo* fi);
 
 private slots:
     void on_pushButton_clicked();
@@ -28,7 +34,12 @@ private:
     Ui::MainWindow *ui;
     ImageFinderControl* control;
 
+    /* used for showImage method */
+    QGraphicsScene *scene;
+    QPixmap image;
+
     void askForDirectoryPath();
+    void showImage(const QString path, QGraphicsView* view);
 };
 
 #endif // MAINWINDOW_H
