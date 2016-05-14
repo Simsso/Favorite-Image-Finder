@@ -27,19 +27,25 @@ public:
     void showImages(const QFileInfoPair fip);
     void showWinner(const QFileInfo* fi);
 
+    void setProgress(double x);
 private slots:
     void on_pushButton_clicked();
+    void on_btnImgA_clicked();
+    void on_btnImgB_clicked();
 
 private:
     Ui::MainWindow *ui;
     ImageFinderControl* control;
 
-    /* used for showImage method */
+    // keypress event
+    void keyPressEvent(QKeyEvent* e);
+
+    // used for showImage method
     QGraphicsScene *scene;
     QPixmap image;
 
     void askForDirectoryPath();
-    void showImage(const QString path, QGraphicsView* view);
+    void showImage(const QString path, QGraphicsView* view, bool autoScale = true);
 };
 
 #endif // MAINWINDOW_H

@@ -62,7 +62,7 @@ std::vector<const QFileInfo*> ImageFinderControl::getPreferredFiles() const
 
 bool ImageFinderControl::done()
 {
-    return (this->getPreferredFiles().size() == 1);
+    return this->getTwoRandomPreferredFiles().equal();
 }
 
 QFileInfoPair ImageFinderControl::getTwoRandomPreferredFiles() const
@@ -77,10 +77,31 @@ QFileInfoPair ImageFinderControl::getTwoRandomPreferredFiles() const
 
 void ImageFinderControl::nextQuestion()
 {
-    this->ui->showImages(this->getTwoRandomPreferredFiles());
+    if (this->done()) {
+        this->ui->showWinner(this->getTwoRandomPreferredFiles().a);
+    }
+    else {
+        this->currentImages = this->getTwoRandomPreferredFiles();
+        this->ui->showImages(this->currentImages);
+    }
+
+    this->ui->setProgress(this->getProgress());
 }
 
 double ImageFinderControl::getProgress() const
 {
     return 1 - ((double)this->getPreferredFiles().size() - 1) / this->files.size();
+}
+
+void ImageFinderControl::setChosenImage(bool aChosen)
+{
+    if (this->done()) {
+        return;
+    }
+
+    const QFileInfo* notChosen = (!aChosen) ? this->currentImages.a : this->currentImages.b;
+    int index = this->files.indexOf(*notChosen);
+    this->preferred[index] = false;
+
+    this->nextQuestion();
 }

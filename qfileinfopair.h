@@ -5,6 +5,9 @@
 
 struct QFileInfoPair {
     const QFileInfo *a, *b;
+    bool equal() const {
+        return a == b;
+    }
 };
 
 #endif // QFILEINFOPAIR_H

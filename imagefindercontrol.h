@@ -16,10 +16,14 @@ public:
     ImageFinderControl(MainWindow* ui, const QString path);
     ~ImageFinderControl();
 
+    void setChosenImage(bool aChosen);
+
 private:
     MainWindow* ui;
     QString directoryPath;
     QFileInfoList files;
+
+    QFileInfoPair currentImages;
 
     bool* preferred;
 
