@@ -8,7 +8,7 @@
 #include <QDir>
 #include <QDebug>
 
-ImageFinderControl::ImageFinderControl(MainWindow* ui, QString path) : ui(ui), directoryPath(path)
+ImageFinderControl::ImageFinderControl(MainWindow *ui, QString path) : ui(ui), directoryPath(path)
 {
     ui->setPath(path);
     this->init();
@@ -75,9 +75,9 @@ QFileInfoPair ImageFinderControl::getTwoRandomPreferredFiles() const
 {
     QFileInfoPair fip;
     std::vector<const QFileInfo*> preferredFiles = this->getPreferredFiles();
-    size_t index = (size_t)((rand() / (double)RAND_MAX) * preferredFiles.size());
-    fip.a = preferredFiles[index++];
-    fip.b = preferredFiles[(index < preferredFiles.size()) ? index : 0];
+    size_t indexA = (size_t)((rand() / (double)RAND_MAX) * preferredFiles.size()), indexB = (size_t)((rand() / (double)RAND_MAX) * (preferredFiles.size() - 1));
+    fip.a = preferredFiles[indexA];
+    fip.b = preferredFiles[(indexA == indexB) ? ++indexB : indexB];
     return fip;
 }
 
@@ -105,9 +105,22 @@ void ImageFinderControl::setChosenImage(bool aChosen)
         return;
     }
 
-    const QFileInfo* notChosen = (!aChosen) ? this->currentImages.a : this->currentImages.b;
-    int index = this->files.indexOf(*notChosen);
-    this->preferred[index] = false;
+    const QFileInfo *notChosen = (!aChosen) ? this->currentImages.a : this->currentImages.b, *chosen = (aChosen) ? this->currentImages.a : this->currentImages.b;
+    int indexNotChosen = this->files.indexOf(*notChosen), indexChosen = this->files.indexOf(*chosen);
+    this->preferred[indexNotChosen] = false;
+
+    if (indexNotChosen < indexChosen) { // swap necessary to correct the order
+        // swap preferred
+        bool tmp = this->preferred[indexNotChosen];
+        this->preferred[indexNotChosen] = this->preferred[indexChosen];
+        this->preferred[indexChosen] = tmp;
+
+        // swap qfileinfolist files
+        this->files.swap(indexChosen, indexNotChosen);
+
+        // swap ui list items
+        this->ui->swapListItems(indexChosen, indexNotChosen);
+    }
 
     this->nextQuestion();
 }

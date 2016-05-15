@@ -48,7 +48,7 @@ void MainWindow::showImages(const QFileInfoPair fip)
     this->showImage(fip.b->absoluteFilePath(), this->ui->graphicsViewB);
 }
 
-void MainWindow::showImage(const QString path, QGraphicsView* view, bool autoScale)
+void MainWindow::showImage(const QString path, QGraphicsView *view, bool autoScale)
 {
     this->image.load(path);
 
@@ -90,7 +90,7 @@ void MainWindow::showWinner(const QFileInfo *fi)
         QDesktopServices::openUrl(QUrl(path));
 }
 
-void MainWindow::keyPressEvent(QKeyEvent* e)
+void MainWindow::keyPressEvent(QKeyEvent *e)
 {
     switch(e->key()) {
     case 65:
@@ -100,6 +100,14 @@ void MainWindow::keyPressEvent(QKeyEvent* e)
         this->control->setChosenImage(false);
         break;
     }
+}
+
+void MainWindow::swapListItems(int aIndex, int bIndex)
+{
+    // grab items
+    QListWidgetItem *a = this->ui->listWidgetFiles->takeItem(aIndex), *b = this->ui->listWidgetFiles->takeItem((aIndex < bIndex) ? bIndex - 1 : bIndex);
+    this->ui->listWidgetFiles->insertItem((aIndex < bIndex) ? bIndex - 1 : bIndex, a);
+    this->ui->listWidgetFiles->insertItem(aIndex, b);
 }
 
 void MainWindow::setProgress(double x)

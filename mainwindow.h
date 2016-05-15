@@ -25,9 +25,11 @@ public:
     void showDirectoryInformation(const QFileInfoList files);
 
     void showImages(const QFileInfoPair fip);
-    void showWinner(const QFileInfo* fi);
+    void showWinner(const QFileInfo *fi);
 
     void setProgress(double x);
+
+    void swapListItems(int a, int b);
 private slots:
     void on_pushButton_clicked();
     void on_btnImgA_clicked();
@@ -35,17 +37,17 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    ImageFinderControl* control;
+    ImageFinderControl *control;
 
     // keypress event
-    void keyPressEvent(QKeyEvent* e);
+    void keyPressEvent(QKeyEvent *e);
 
     // used for showImage method
     QGraphicsScene *scene;
     QPixmap image;
 
     void askForDirectoryPath();
-    void showImage(const QString path, QGraphicsView* view, bool autoScale = true);
+    void showImage(const QString path, QGraphicsView *view, bool autoScale = true);
 };
 
 #endif // MAINWINDOW_H

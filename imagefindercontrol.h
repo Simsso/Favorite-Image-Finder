@@ -13,19 +13,19 @@ class MainWindow;
 class ImageFinderControl
 {
 public:
-    ImageFinderControl(MainWindow* ui, const QString path);
+    ImageFinderControl(MainWindow *ui, const QString path);
     ~ImageFinderControl();
 
     void setChosenImage(bool aChosen);
 
 private:
-    MainWindow* ui;
+    MainWindow *ui;
     QString directoryPath;
     QFileInfoList files;
 
     QFileInfoPair currentImages;
 
-    bool* preferred;
+    bool *preferred;
 
     void loadFileNames();
     void init();
