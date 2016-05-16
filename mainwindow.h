@@ -30,6 +30,7 @@ public:
     void setProgress(double x);
 
     void swapListItems(int a, int b);
+
 private slots:
     void on_pushButton_clicked();
     void on_btnImgA_clicked();

@@ -75,9 +75,15 @@ QFileInfoPair ImageFinderControl::getTwoRandomPreferredFiles() const
 {
     QFileInfoPair fip;
     std::vector<const QFileInfo*> preferredFiles = this->getPreferredFiles();
-    size_t indexA = (size_t)((rand() / (double)RAND_MAX) * preferredFiles.size()), indexB = (size_t)((rand() / (double)RAND_MAX) * (preferredFiles.size() - 1));
-    fip.a = preferredFiles[indexA];
-    fip.b = preferredFiles[(indexA == indexB) ? ++indexB : indexB];
+    if (preferredFiles.size() == 1) {
+        fip.a = preferredFiles[0];
+        fip.b = preferredFiles[0];
+    }
+    else {
+        size_t indexA = (size_t)((rand() / (double)RAND_MAX) * preferredFiles.size()), indexB = (size_t)((rand() / (double)RAND_MAX) * (preferredFiles.size() - 1));
+        fip.a = preferredFiles[indexA];
+        fip.b = preferredFiles[(indexA == indexB) ? ++indexB : indexB];
+    }
     return fip;
 }
 
